@@ -19,7 +19,8 @@ from .views import (
     PlacementCompanyView,
     PlacementStudentCompanyView,
     PlacementApplyView,
-    TeacherCheckView
+    TeacherCheckView,
+    PlacementApplicationView
 )
 
 router = DefaultRouter()
@@ -28,13 +29,13 @@ router.register(r'research', ResearchViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('placement/company/<int:company_id>/applications/', PlacementApplicationView.as_view(), name="placement_applications"),
     path('placement/company/', PlacementCompanyView.as_view(), name="placement_company_view"),
     path('placement/student/company/', PlacementStudentCompanyView.as_view(), name="placement_student_view"),
     path('placement/apply/', PlacementApplyView.as_view(), name="placement_apply_view"),
     path('class/<int:class_id>/role/', TeacherCheckView.as_view()),
     path('placement/profile/', PlacementProfileView.as_view(), name="placement_views"),
     path('view-exam-results/<int:exam_id>/', ViewExamResultsView.as_view(), name='view_exam_results'),
-    path('view-exam-results/<int:exam_id>/', ViewExamResultsView.as_view() , name='view_exam_results'),
     path('subjects/<int:subject_id>/exams/', ViewSubjectExamsView.as_view(), name='view_exam_results'),
     path('exams/<int:exam_id>/publish-results/', PublishExamResultsView.as_view(), name='publish_exam_results'),
     path("class/<int:class_id>/<int:subject_id>/add-exam/",  CreateExamView.as_view(), name="add_subject"),

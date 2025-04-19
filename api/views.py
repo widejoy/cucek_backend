@@ -564,3 +564,15 @@ class PlacementApplyView(APIView):
                 {"error": str(e)},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+            
+            
+class PlacementApplicationView(APIView):
+    
+    def get(self, request ,company_id):
+        company = PlacementCompany.objects.get(pk=company_id)
+        applications = PlacementApplication.objects.filter(company=company)
+        return Response(
+            ApplicationSerializer(applications, many=True).data
+        )
+        
+            
